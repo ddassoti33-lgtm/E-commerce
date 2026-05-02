@@ -1,3 +1,9 @@
-<footer style="text-align:center; padding:20px;">
-    <p>© 2026 MonShop</p>
-</footer>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 E-Commerce. Tous droits réservés.</p>
+            <p>Contact: info@ecommerce.com</p>
+        </div>
+    </footer>
+</body>
+</html>
