@@ -19,7 +19,7 @@ function requireLogin() {
     }
 }
 
-// Rediriger vers l'accueil si admin
+// Rediriger vers l'accueil si pas admin
 function requireAdmin() {
     if (!isAdmin()) {
         header("Location: index.php");

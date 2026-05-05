@@ -1,8 +1,8 @@
     </main>
     <footer>
         <div class="container">
-            <p>&copy; 2026 E-Commerce. Tous droits réservés.</p>
-            <p>Contact: info@ecommerce.com</p>
+            <p>&copy; 2026 EsaShop. Tous droits réservés.</p>
+            <p>Contact: info@esashop.com</p>
         </div>
     </footer>
 </body>

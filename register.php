@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Si pas d'erreur, insérer l'utilisateur
     if (empty($errors)) {
         try {
-            $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, 'user')");
+            $stmt = $pdo->prepare("INSERT INTO users (nom, email, password, role) VALUES (?, ?, ?, 'user')");
             $stmt->execute([$name, $email, password_hash($password, PASSWORD_DEFAULT)]);
             
             $_SESSION['success'] = "Inscription réussie! Veuillez vous connecter.";

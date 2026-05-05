@@ -27,7 +27,7 @@ include 'includes/header.php';
     
     <div class="cart-summary">
         <h2>Résumé</h2>
-        <p>Total: <strong>0 €</strong></p>
+        <p>Total: <strong>0 FCFA</strong></p><br/>
         <a href="checkout.php" class="btn btn-primary">Procéder au paiement</a>
         <a href="index.php" class="btn btn-secondary">Continuer les achats</a>
     </div>

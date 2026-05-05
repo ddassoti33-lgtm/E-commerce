@@ -24,7 +24,7 @@ include 'includes/header.php';
     <h1>Mes Commandes</h1>
     
     <?php if (empty($orders)): ?>
-        <p>Vous n'avez pas encore de commande.</p>
+        <p>Vous n'avez pas encore de commande.</p><br/>
         <a href="index.php" class="btn btn-primary">Continuer les achats</a>
     <?php else: ?>
         <table>
