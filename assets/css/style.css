@@ -12,9 +12,9 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1800px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 50px;
 }
 
 /* Header et Navigation */
@@ -162,7 +162,7 @@ select:focus {
 /* Produits */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat( minmax(250px, 1fr));
     gap: 2rem;
     margin: 2rem 0;
 }
@@ -195,17 +195,20 @@ select:focus {
 
 .product-info {
     padding: 1rem;
+    
 }
 
 .product-name {
     font-weight: bold;
     margin-bottom: 0.5rem;
+  
 }
 
 .product-price {
     color: #e74c3c;
     font-size: 1.2rem;
     margin-bottom: 1rem;
+    
 }
 
 /* Tableau */
@@ -240,4 +243,69 @@ tr:hover {
     .products-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
+}
+
+/* Styles additionnels pour les sections */
+.home, .cart, .checkout, .my-orders, .order-detail, .product-detail {
+    min-height: 70vh;
+}
+
+/* Améliorations du container */
+.container {
+    width: 100%;
+}
+
+/* Styles pour les filtres */
+.filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.filters input,
+.filters select {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Style pour le résumé du panier */
+.cart-summary {
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+.cart-summary h2 {
+    color: #2c3e50;
+}
+
+.btn-success {
+    background-color: #27ae60;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #229954;
+}
+
+/* Styles supplémentaires */
+.alert {
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+input, textarea, select {
+    font-family: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #3498db;
 }
