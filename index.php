@@ -55,9 +55,9 @@ foreach ($products as $product) {
                 <p><?php echo count($filtered_products); ?> produit<?php echo count($filtered_products) > 1 ? 's' : ''; ?> trouvé<?php echo count($filtered_products) > 1 ? 's' : ''; ?></p>
             </div>
 
-            <div class="products-grid" style="display: grid; grid-template-columns: repeat( minmax(800px, 1fr)); gap: 2rem;">
+            <div class="products-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
                 <?php foreach ($filtered_products as $product): ?>
-                    <div class="product-card" style="background: whitesmoke; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; width :280px;">
+                    <div class="product-card" style="background: whitesmoke; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'"">
                         <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; overflow: hidden;">
                             <?php if ($product['image']): ?>
                                 <img src="assets/images/<?php echo escape($product['image']); ?>" alt="<?php echo escape($product['nom']); ?>" style="width: 100%; height: 100%; object-fit: cover;">
