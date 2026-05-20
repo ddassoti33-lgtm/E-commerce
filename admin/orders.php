@@ -86,7 +86,7 @@ try {
                             ">
                                 <?php 
                                 $statuts = [
-                                    'pending' => '⏳ En attente',
+                                   'pending' => '⏳ En attente',
                                     'sending' => '🚚 En cours de livraison',
                                     'completed' => '✓ Complétée',
                                     'cancelled' => '✗ Annulée'
@@ -96,10 +96,7 @@ try {
                             </span>
                         </td>
                         <td>
-                            <div class="btn-group">
-                                <a href="order-details.php?id=<?php echo $order['id']; ?>" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Détails</a>
-                                <a href="update-order.php?id=<?php echo $order['id']; ?>&action=complete" class="btn btn-success" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Valider</a>
-                            </div>
+                            <a href="order-details.php?id=<?php echo $order['id']; ?>" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; background: #6c757d; color: white; border-radius: 4px;">👁️ Détails</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

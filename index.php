@@ -25,7 +25,7 @@ foreach ($products as $product) {
 
 <section class="home">
     <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem 0; margin-bottom: 2rem; text-align: center;">
-        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Bienvenue sur EsaShop</h1>
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Bienvenue sur Ibn'Shop</h1>
         <p style="font-size: 1.1rem;">Découvrez notre sélection de produits de qualité</p>
     </div>
     

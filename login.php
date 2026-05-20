@@ -56,7 +56,7 @@ include 'includes/header.php';
         <form method="POST">
             <div class="form-group">
                 <label>Email:</label>
-                <input type="email" name="email" required>
+                <input type="email" name="email"  placeholder="exemple@gmail.com" required>
             </div>
             
             <div class="form-group">

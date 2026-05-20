@@ -74,12 +74,17 @@ try {
                             echo 'background-color: #d4edda; color: #155724;';
                         } elseif ($order['statut'] === 'pending') {
                             echo 'background-color: #fff3cd; color: #856404;';
+                        } elseif ($order['statut'] === 'sending') {
+                            echo 'background-color: #cfe2ff; color: #084298;';
+                        } elseif ($order['statut'] === 'cancelled') {
+                            echo 'background-color: #f8d7da; color: #721c24;';
                         }
                         ?>
                     ">
                         <?php 
                         $statuts = [
                             'pending' => '⏳ En attente',
+                            'sending' => '🚚 En cours de livraison',
                             'completed' => '✓ Complétée',
                             'cancelled' => '✗ Annulée'
                         ];
@@ -128,22 +133,13 @@ try {
     </div>
 
     <!-- Total et actions -->
-    <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+    <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
             <h3 style="color: #1a1a2e; margin: 0;">Montant Total</h3>
             <span style="font-size: 1.8rem; color: #00d4ff; font-weight: bold;">
                 <?php echo number_format($order['total'], 2, ',', ' '); ?> €
             </span>
         </div>
-
-        <?php if ($order['statut'] === 'pending'): ?>
-            <div style="display: flex; gap: 1rem;">
-                <a href="update-order.php?id=<?php echo $order['id']; ?>&action=complete" class="btn btn-success">✓ Marquer comme complétée</a>
-                <a href="update-order.php?id=<?php echo $order['id']; ?>&action=cancel" class="btn btn-danger">✗ Annuler la commande</a>
-            </div>
-        <?php else: ?>
-            <p style="color: #666;">Cette commande ne peut plus être modifiée.</p>
-        <?php endif; ?>
     </div>
 </div>
 

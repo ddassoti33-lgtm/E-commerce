@@ -80,12 +80,17 @@ include 'includes/header.php';
                                 echo 'background-color: #d4edda; color: #155724;';
                             } elseif ($order['statut'] === 'pending') {
                                 echo 'background-color: #fff3cd; color: #856404;';
+                            } elseif ($order['statut'] === 'sending') {
+                                echo 'background-color: #cfe2ff; color: #084298;';
+                            } elseif ($order['statut'] === 'cancelled') {
+                                echo 'background-color: #f8d7da; color: #721c24;';
                             }
                             ?>
                         ">
                             <?php 
                             $statuts = [
                                 'pending' => '⏳ En attente',
+                                'sending' => '🚚 En cours de livraison',
                                 'completed' => '✓ Complétée',
                                 'cancelled' => '✗ Annulée'
                             ];

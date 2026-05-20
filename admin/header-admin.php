@@ -12,7 +12,7 @@
         <nav class="navbar">
             <div class="container">
                 <div class="logo">
-                    <h1>EsaShop Admin</h1>
+                    <h1>Ibn'Shop Admin</h1>
                 </div>
                 <ul class="menu">
                     <li><a href="index.php">Dashboard</a></li>
