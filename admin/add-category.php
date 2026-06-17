@@ -60,7 +60,7 @@ include 'header-admin.php';
     
     <?php displayErrors($errors); ?>
     
-    <form method="POST" class="admin-form">
+    <form m.ethod="POST" class="admin-form">
         <div class="form-group">
             <label for="nom">Nom de la catégorie *</label>
             <input type="text" id="nom" name="nom" required value="<?php echo $category ? escape($category['nom']) : ''; ?>" placeholder="ex: Électronique">

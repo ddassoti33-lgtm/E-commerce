@@ -42,6 +42,22 @@ try {
     $items_stmt->execute([$_GET['id']]);
     $items = $items_stmt->fetchAll();
 
+    // Récupérer l'historique des statuts (si la table existe)
+    $history = [];
+    try {
+        $history_stmt = $pdo->prepare("
+            SELECT ancien_statut, nouveau_statut, changed_at 
+            FROM order_status_history 
+            WHERE order_id = ? 
+            ORDER BY changed_at DESC
+        ");
+        $history_stmt->execute([$_GET['id']]);
+        $history = $history_stmt->fetchAll();
+    } catch (PDOException $e) {
+        // La table peut ne pas exister, c'est normal
+        $history = [];
+    }
+
 } catch (PDOException $e) {
     $error = "Erreur lors du chargement de la commande.";
 }
@@ -76,23 +92,25 @@ include 'includes/header.php';
                             font-size: 0.85rem;
                             font-weight: bold;
                             <?php 
-                            if ($order['statut'] === 'completed') {
+                            if ($order['statut'] === 'livree') {
                                 echo 'background-color: #d4edda; color: #155724;';
-                            } elseif ($order['statut'] === 'pending') {
+                            } elseif ($order['statut'] === 'en_attente') {
                                 echo 'background-color: #fff3cd; color: #856404;';
-                            } elseif ($order['statut'] === 'sending') {
+                            } elseif ($order['statut'] === 'expediee') {
+                                echo 'background-color: #d1ecf1; color: #0c5460;';
+                            } elseif ($order['statut'] === 'payee') {
                                 echo 'background-color: #cfe2ff; color: #084298;';
-                            } elseif ($order['statut'] === 'cancelled') {
+                            } elseif ($order['statut'] === 'annulee') {
                                 echo 'background-color: #f8d7da; color: #721c24;';
                             }
                             ?>
                         ">
                             <?php 
                             $statuts = [
-                                'pending' => '⏳ En attente',
-                                'sending' => '🚚 En cours de livraison',
-                                'completed' => '✓ Complétée',
-                                'cancelled' => '✗ Annulée'
+                                'en_attente' => '⏳ En attente',
+                                'expediee' => '🚚 Expédiée',
+                                'livree' => '✓ Livrée',
+                                'annulee' => '✗ Annulée'
                             ];
                             echo $statuts[$order['statut']] ?? escape($order['statut']);
                             ?>
@@ -154,6 +172,46 @@ include 'includes/header.php';
                 </div>
             </div>
         </div>
+
+        <!-- Historique des statuts -->
+        <?php if (!empty($history)): ?>
+        <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 2rem;">
+            <h2 style="color: #1a1a2e; margin-top: 0;">📜 Historique de votre Commande</h2>
+            
+            <div style="border-left: 3px solid #667eea; padding-left: 1.5rem;">
+                <?php 
+                $statuts = [
+                    'en_attente' => ['label' => '⏳ En attente', 'color' => '#fff3cd', 'text' => '#856404'],
+                    'payee' => ['label' => '✓ Payée', 'color' => '#cfe2ff', 'text' => '#084298'],
+                    'expediee' => ['label' => '🚚 Expédiée', 'color' => '#d1ecf1', 'text' => '#0c5460'],
+                    'livree' => ['label' => '✓ Livrée', 'color' => '#d4edda', 'text' => '#155724'],
+                    'annulee' => ['label' => '✗ Annulée', 'color' => '#f8d7da', 'text' => '#721c24'],
+                ];
+                foreach ($history as $entry): 
+                    $from = $statuts[$entry['ancien_statut']] ?? ['label' => $entry['ancien_statut'], 'color' => '#e9ecef', 'text' => '#666'];
+                    $to = $statuts[$entry['nouveau_statut']] ?? ['label' => $entry['nouveau_statut'], 'color' => '#e9ecef', 'text' => '#666'];
+                ?>
+                    <div style="margin-bottom: 1.5rem; position: relative;">
+                        <div style="position: absolute; left: -1.95rem; top: 0; width: 1rem; height: 1rem; background: #667eea; border-radius: 50%; border: 3px solid white;"></div>
+                        
+                        <p style="margin: 0; font-size: 0.9rem; color: #666;">
+                            <?php echo date('d/m/Y H:i:s', strtotime($entry['changed_at'])); ?>
+                        </p>
+                        
+                        <p style="margin: 0.5rem 0; font-weight: 500;">
+                            <span style="padding: 0.2rem 0.6rem; border-radius: 3px; background-color: <?php echo $from['color']; ?>; color: <?php echo $from['text']; ?>; font-size: 0.85rem;">
+                                <?php echo $from['label']; ?>
+                            </span>
+                            →
+                            <span style="padding: 0.2rem 0.6rem; border-radius: 3px; background-color: <?php echo $to['color']; ?>; color: <?php echo $to['text']; ?>; font-size: 0.85rem;">
+                                <?php echo $to['label']; ?>
+                            </span>
+                        </p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php endif; ?>
 
         <div style="text-align: center; margin-top: 2rem;">
             <a href="index.php" class="btn btn-primary" style="text-decoration: none;">← Continuer les achats</a>

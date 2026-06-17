@@ -7,6 +7,24 @@ requireAdmin();
 
 include 'header-admin.php';
 
+// Traiter la modification du statut
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id']) && isset($_POST['statut'])) {
+    $order_id = intval($_POST['order_id']);
+    $new_status = trim($_POST['statut']);
+    $statuts_valides = ['en_attente', 'payee', 'expediee', 'livree', 'annulee'];
+    
+    if (in_array($new_status, $statuts_valides)) {
+        try {
+            $stmt = $pdo->prepare("UPDATE orders SET statut = ? WHERE id = ?");
+            $stmt->execute([$new_status, $order_id]);
+            header("Location: orders.php?success=" . urlencode("Statut mis à jour !"));
+            exit;
+        } catch (PDOException $e) {
+            $error = "Erreur : " . $e->getMessage();
+        }
+    }
+}
+
 // Récupérer toutes les commandes avec les infos utilisateur
 $orders = [];
 try {
@@ -65,38 +83,18 @@ try {
                             <?php echo number_format($order['total'], 2, ',', ' '); ?> Fcfa
                         </td>
                         <td>
-                            <span style="
-                                padding: 0.4rem 0.8rem;
-                                border-radius: 4px;
-                                font-size: 0.85rem;
-                                font-weight: bold;
-                                <?php 
-                                if ($order['statut'] === 'completed') {
-                                    echo 'background-color: #d4edda; color: #155724;';
-                                } elseif ($order['statut'] === 'pending') {
-                                    echo 'background-color: #fff3cd; color: #856404;';
-                                } 
-                                elseif ($order['statut'] === 'sending') {
-                                    echo 'background-color: #f8d7da; color: #1c5a72;';
-                                }   
-                                elseif ($order['statut'] === 'cancelled') {
-                                    echo 'background-color: #f8d7da; color: #721c24;';
-                                }
-                                ?>
-                            ">
-                                <?php 
-                                $statuts = [
-                                   'pending' => '⏳ En attente',
-                                    'sending' => '🚚 En cours de livraison',
-                                    'completed' => '✓ Complétée',
-                                    'cancelled' => '✗ Annulée'
-                                ];
-                                echo $statuts[$order['statut']] ?? $order['statut'];
-                                ?>
-                            </span>
+                            <form method="POST" style="display: inline;">
+                                <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                <select name="statut" onchange="this.form.submit();" style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-weight: bold;" <?php echo $order['statut'] === 'livree'  ? 'disabled' : ''; ?>>
+                                    <option value="en_attente" <?php echo $order['statut'] === 'en_attente' ? 'selected' : ''; ?>>⏳ En attente</option>
+                                    <option value="expediee" <?php echo $order['statut'] === 'expediee' ? 'selected' : ''; ?>>🚚 Expédiée</option>
+                                    <option value="livree" <?php echo $order['statut'] === 'livree' ? 'selected' : ''; ?>>✓ Livrée</option>
+                                    <option value="annulee" <?php echo $order['statut'] === 'annulee' ? 'selected' : ''; ?>>✗ Annulée</option>
+                                </select>
+                            </form>
                         </td>
                         <td>
-                            <a href="order-details.php?id=<?php echo $order['id']; ?>" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; background: #6c757d; color: white; border-radius: 4px;">👁️ Détails</a>
+                            <button type="button" onclick="window.location.href='order-details.php?id=<?php echo $order['id']; ?>';" style="padding: 0.7rem 1.2rem; font-size: 0.9rem; text-decoration: none; background: #667eea; color: white; border-radius: 4px; display: inline-block; font-weight: 500; border: none; cursor: pointer;">👁️ Voir détails</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>

@@ -62,23 +62,25 @@ try {
                                         font-size: 0.85rem;
                                         font-weight: bold;
                                         <?php 
-                                        if ($order['statut'] === 'completed') {
+                                        if ($order['statut'] === 'livree') {
                                             echo 'background-color: #d4edda; color: #155724;';
-                                        } elseif ($order['statut'] === 'pending') {
+                                        } elseif ($order['statut'] === 'en_attente') {
                                             echo 'background-color: #fff3cd; color: #856404;';
-                                        } elseif ($order['statut'] === 'sending') {
+                                        } elseif ($order['statut'] === 'expediee') {
+                                            echo 'background-color: #d1ecf1; color: #0c5460;';
+                                        } elseif ($order['statut'] === 'payee') {
                                             echo 'background-color: #cfe2ff; color: #084298;';
-                                        } elseif ($order['statut'] === 'cancelled') {
+                                        } elseif ($order['statut'] === 'annulee') {
                                             echo 'background-color: #f8d7da; color: #721c24;';
                                         }
                                         ?>
                                     ">
                                         <?php 
                                         $statuts = [
-                                            'pending' => '⏳ En attente',
-                                            'sending' => '🚚 En cours de livraison',
-                                            'completed' => '✓ Complétée',
-                                            'cancelled' => '✗ Annulée'
+                                            'en_attente' => '⏳ En attente',
+                                            'expediee' => '🚚 Expédiée',
+                                            'livree' => '✓ Livrée',
+                                            'annulee' => '✗ Annulée'
                                         ];
                                         echo $statuts[$order['statut']] ?? escape($order['statut']);
                                         ?>

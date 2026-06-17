@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             // Créer la commande
-            $stmt = $pdo->prepare("INSERT INTO orders (user_id, total, statut) VALUES (?, ?, 'pending')");
-            $stmt->execute([$_SESSION['user_id'], $total]);
+            $stmt = $pdo->prepare("INSERT INTO orders (user_id, total, statut, adresse) VALUES (?, ?, 'en_attente', ?)");
+            $stmt->execute([$_SESSION['user_id'], $total, $address]);
             $order_id = $pdo->lastInsertId();
 
             // Ajouter les articles de la commande
